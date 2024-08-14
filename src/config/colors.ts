@@ -11,4 +11,6 @@ export const Colors = {
   disabled: '#A9A9A9',
   success: '#228B22',
   error: '#DC143C',
+  common_white: '#fff',
+  common_black: '#000',
 };

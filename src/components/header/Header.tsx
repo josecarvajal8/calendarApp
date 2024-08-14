@@ -12,8 +12,8 @@ export const Header: FC<IHeaderProps> = ({title, leftAction}) => {
   return (
     <View style={styles.container}>
       {leftAction ? (
-        <Pressable>
-          <Text>{'<'}</Text>
+        <Pressable onPress={leftAction} style={styles.button}>
+          <Text style={styles.textButton}>{'<'}</Text>
         </Pressable>
       ) : (
         <View style={styles.emptyElement} />
