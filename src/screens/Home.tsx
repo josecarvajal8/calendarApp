@@ -1,9 +1,11 @@
 import React, {FC} from 'react';
-import {Text} from 'react-native';
+import {TypoBase} from '../components/typography/TypoBase';
 export const Home: FC = () => {
   return (
     <>
-      <Text>{'Hello'}</Text>
+      <TypoBase fontStyle="bold" size="display">
+        {'Hello'}
+      </TypoBase>
     </>
   );
 };
