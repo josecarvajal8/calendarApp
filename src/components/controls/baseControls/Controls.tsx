@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {Image, Pressable, View} from 'react-native';
 import {styles} from './styles';
-import {TypoBase} from '../typography/TypoBase';
-import {Colors} from '../../config/colors';
-import {viewTypes} from '../../models/common';
+import {TypoBase} from '../../typography/TypoBase';
+import {Colors} from '../../../config/colors';
+import {viewTypes} from '../../../models/common';
 
 interface IButtonControlProps {
   title: string;
@@ -52,7 +52,7 @@ export const Controls: FC<IControlsProps> = ({
       <Pressable style={styles.roundedButton}>
         <Image
           style={styles.icon}
-          source={require('../../../assets/images/icons/plus.png')}
+          source={require('../../../../assets/images/icons/plus.png')}
         />
       </Pressable>
     </View>
