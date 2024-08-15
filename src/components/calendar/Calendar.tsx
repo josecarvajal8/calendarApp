@@ -12,7 +12,7 @@ import {styles} from './styles';
 import {TypoBase} from '../typography/TypoBase';
 import {CalendarControl} from '../controls';
 import {DayComponent} from './day/DayComponent';
-import {DayView} from './dayDetail/DayView';
+import {DayView} from './dayView/DayView';
 import {mockEvents} from '../../config/contants';
 
 interface ICalendarProps {
