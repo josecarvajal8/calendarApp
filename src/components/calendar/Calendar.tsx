@@ -1,7 +1,8 @@
-import React, {FC, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import React, {FC, useMemo, useState} from 'react';
+import {FlatList, View} from 'react-native';
 import {
   adjustDateByDays,
+  areDatesEqual,
   getDaysInMonth,
   getWeekDays,
 } from '../../utils/utilities';
@@ -10,6 +11,8 @@ import {styles} from './styles';
 import {TypoBase} from '../typography/TypoBase';
 import {CalendarControl} from '../controls';
 import {DayComponent} from './day/DayComponent';
+import {DayView} from './dayDetail/DayView';
+import {mockEvents} from '../../config/contants';
 
 interface ICalendarProps {
   currentViewMode: viewTypes;
@@ -75,6 +78,11 @@ export const Calendar: FC<ICalendarProps> = ({
     return daysArray;
   };
 
+  const eventsOnSelectedDay = useMemo(
+    () => mockEvents.filter(event => areDatesEqual(event.date, selectedDate)),
+    [selectedDate],
+  );
+
   const renderWeekDays = () => (
     <View style={styles.row}>
       {weekDays.map((day, index) => (
@@ -128,11 +136,7 @@ export const Calendar: FC<ICalendarProps> = ({
           />
         </>
       ) : (
-        <View style={styles.dayView}>
-          <Text style={styles.dayText}>
-            Selected Date: {selectedDate.toDateString()}
-          </Text>
-        </View>
+        <DayView events={eventsOnSelectedDay} />
       )}
     </View>
   );
