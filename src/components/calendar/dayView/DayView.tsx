@@ -1,9 +1,12 @@
 import React, {FC, useEffect, useMemo, useRef} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Pressable} from 'react-native';
 import {IEvent} from '../../../models/events';
 import {styles} from './styles';
 import {TypoBase} from '../../typography/TypoBase';
 import {parseTime} from '../../../utils/utilities';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../navigation/interface';
 
 interface IDayViewProps {
   events: IEvent[];
@@ -16,6 +19,8 @@ const getCurrentTime = () => {
   return {hours, minutes};
 };
 export const DayView: FC<IDayViewProps> = ({events}) => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Event'>>();
   const renderEvent = (event: IEvent) => {
     const {id, time, title} = event;
     const [startTime, endTime] = time;
@@ -23,13 +28,17 @@ export const DayView: FC<IDayViewProps> = ({events}) => {
     const {hours: endHour, minutes: endMinute} = parseTime(endTime);
     const top = startHour * 60 + startMinute;
     const height = (endHour - startHour) * 60 + (endMinute - startMinute);
+    const onDetailEvent = () => navigate('Event', {eventId: id});
 
     return (
-      <View key={id} style={[styles.eventBlock, {top, height}]}>
+      <Pressable
+        onPress={onDetailEvent}
+        key={id}
+        style={[styles.eventBlock, {top, height}]}>
         <TypoBase size="body" fontStyle="bold">
           {`${title}  ${startTime} - ${endTime}`}
         </TypoBase>
-      </View>
+      </Pressable>
     );
   };
   const earliestEvent = useMemo(() => {

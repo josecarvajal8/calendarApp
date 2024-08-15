@@ -33,4 +33,9 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: fonts.bold,
   },
+  icon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
 });

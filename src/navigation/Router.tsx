@@ -2,8 +2,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {FC} from 'react';
 import {Event, Home} from '../screens';
+import {RootStackParamList} from './interface';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 export const Router: FC = () => {
   return (
     <NavigationContainer>
