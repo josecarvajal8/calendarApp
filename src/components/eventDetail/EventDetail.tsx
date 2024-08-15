@@ -3,7 +3,7 @@ import {IEvent} from '../../models/events';
 import {Pressable, View} from 'react-native';
 import {TypoBase} from '../typography/TypoBase';
 import {styles} from './styles';
-import {LABEL_MONTHS} from '../../config/contants';
+import {LABEL_MONTHS} from '../../config/constants';
 import {Colors} from '../../config/colors';
 interface IEventDetailProps {
   data: Omit<IEvent, 'id'>;

@@ -8,7 +8,7 @@ import {CustomModal} from '../components/modal/CustomModal';
 import {useToggle} from '../hooks/useToggle';
 import {CreateEventForm} from '../components/createEventForm/CreateEventFrom';
 import {getData} from '../provider/storage';
-import {EVENTS_KEY} from '../config/contants';
+import {EVENTS_KEY} from '../config/constants';
 import {IEvent} from '../models/events';
 import {useFocusEffect} from '@react-navigation/native';
 export const Home: FC = () => {

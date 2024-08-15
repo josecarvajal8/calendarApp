@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Text, type TextStyle} from 'react-native';
-import {fonts} from '../../config/contants';
+import {fonts} from '../../config/constants';
 import {styles} from './styles';
 import {Colors} from '../../config/colors';
 

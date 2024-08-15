@@ -4,7 +4,7 @@ import {Header} from '../components/header/Header';
 import {useNavigation} from '@react-navigation/native';
 import {IEvent} from '../models/events';
 import {getData, storeData} from '../provider/storage';
-import {EVENTS_KEY} from '../config/contants';
+import {EVENTS_KEY} from '../config/constants';
 import {EventDetail} from '../components/eventDetail/EventDetail';
 import {Alert} from 'react-native';
 interface IEventProps {
