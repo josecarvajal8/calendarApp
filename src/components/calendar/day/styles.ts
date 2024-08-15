@@ -15,4 +15,8 @@ export const styles = StyleSheet.create({
     borderColor: Colors.common_black,
     borderRadius: 40,
   },
+  dotEvent: {
+    width: 4,
+    height: 4,
+  },
 });

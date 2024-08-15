@@ -1,4 +1,4 @@
-import {IEvents} from '../models/events';
+import {IEvent} from '../models/events';
 
 export enum fonts {
   thin = 'Montserrat-Thin',
@@ -23,7 +23,7 @@ export const LABEL_MONTHS: Record<number, string> = {
   11: 'December',
 };
 
-export const mockEvents: IEvents[] = [
+export const mockEvents: IEvent[] = [
   {
     id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
     date: new Date('2024-08-14T00:00:00.000Z'),

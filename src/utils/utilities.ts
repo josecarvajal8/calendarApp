@@ -26,6 +26,18 @@ export const areDatesEqual = (date1: Date, date2: Date) => {
   );
 };
 
+export const isOnSameMonth = ({
+  firstDate,
+  secondDate,
+}: {
+  firstDate: {month: number; year: number};
+  secondDate: {month: number; year: number};
+}) => {
+  return (
+    firstDate.month === secondDate.month && firstDate.year === secondDate.year
+  );
+};
+
 export const adjustDateByDays = (date: Date, daysToAdjust: number) => {
   const result = date.setUTCDate(date.getUTCDate() + daysToAdjust);
   return new Date(result);

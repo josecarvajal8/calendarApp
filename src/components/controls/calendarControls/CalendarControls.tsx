@@ -26,8 +26,8 @@ export const CalendarControl: FC<ICalendarControls> = ({
     currentViewMode === 'calendar'
       ? `${LABEL_MONTHS[currentMonth]} ${currentYear}`
       : `${
-          LABEL_MONTHS[currentMonth]
-        } ${selectedDate.getDate()} ${currentYear}`;
+          LABEL_MONTHS[selectedDate.getMonth()]
+        } ${selectedDate.getDate()} ${selectedDate.getFullYear()}`;
 
   const onBackButton =
     currentViewMode === 'calendar'

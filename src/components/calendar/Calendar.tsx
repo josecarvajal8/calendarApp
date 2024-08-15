@@ -1,15 +1,19 @@
-import React, {FC, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import React, {FC, useMemo, useState} from 'react';
+import {FlatList, View} from 'react-native';
 import {
   adjustDateByDays,
+  areDatesEqual,
   getDaysInMonth,
   getWeekDays,
+  isOnSameMonth,
 } from '../../utils/utilities';
 import {viewTypes} from '../../models/common';
 import {styles} from './styles';
 import {TypoBase} from '../typography/TypoBase';
 import {CalendarControl} from '../controls';
 import {DayComponent} from './day/DayComponent';
+import {DayView} from './dayDetail/DayView';
+import {mockEvents} from '../../config/contants';
 
 interface ICalendarProps {
   currentViewMode: viewTypes;
@@ -75,6 +79,28 @@ export const Calendar: FC<ICalendarProps> = ({
     return daysArray;
   };
 
+  const eventsOnSelectedDay = useMemo(
+    () => mockEvents.filter(event => areDatesEqual(event.date, selectedDate)),
+    [selectedDate],
+  );
+
+  const eventsOnMonth = useMemo(
+    () =>
+      mockEvents.filter(event => {
+        return isOnSameMonth({
+          firstDate: {
+            month: month,
+            year: year,
+          },
+          secondDate: {
+            month: event.date.getMonth(),
+            year: event.date.getFullYear(),
+          },
+        });
+      }),
+    [month, year],
+  );
+
   const renderWeekDays = () => (
     <View style={styles.row}>
       {weekDays.map((day, index) => (
@@ -113,14 +139,24 @@ export const Calendar: FC<ICalendarProps> = ({
           {renderWeekDays()}
           <FlatList
             data={getDaysToRender()}
-            renderItem={({item}) => (
-              <DayComponent
-                item={item}
-                currentDate={currentDate}
-                selectedDate={selectedDate}
-                setSelectedDate={onSelectDate}
-              />
-            )}
+            renderItem={({item}) => {
+              const dayHasEvents = item
+                ? Boolean(
+                    eventsOnMonth.find(event =>
+                      areDatesEqual(event.date, item),
+                    ),
+                  )
+                : false;
+              return (
+                <DayComponent
+                  hasEvents={dayHasEvents}
+                  item={item}
+                  currentDate={currentDate}
+                  selectedDate={selectedDate}
+                  setSelectedDate={onSelectDate}
+                />
+              );
+            }}
             keyExtractor={(item, index) =>
               item ? item.toDateString() : index.toString()
             }
@@ -128,11 +164,7 @@ export const Calendar: FC<ICalendarProps> = ({
           />
         </>
       ) : (
-        <View style={styles.dayView}>
-          <Text style={styles.dayText}>
-            Selected Date: {selectedDate.toDateString()}
-          </Text>
-        </View>
+        <DayView events={eventsOnSelectedDay} />
       )}
     </View>
   );
