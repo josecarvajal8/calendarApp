@@ -5,6 +5,7 @@ import {
   areDatesEqual,
   getDaysInMonth,
   getWeekDays,
+  isOnSameMonth,
 } from '../../utils/utilities';
 import {viewTypes} from '../../models/common';
 import {styles} from './styles';
@@ -83,6 +84,23 @@ export const Calendar: FC<ICalendarProps> = ({
     [selectedDate],
   );
 
+  const eventsOnMonth = useMemo(
+    () =>
+      mockEvents.filter(event => {
+        return isOnSameMonth({
+          firstDate: {
+            month: month,
+            year: year,
+          },
+          secondDate: {
+            month: event.date.getMonth(),
+            year: event.date.getFullYear(),
+          },
+        });
+      }),
+    [month, year],
+  );
+
   const renderWeekDays = () => (
     <View style={styles.row}>
       {weekDays.map((day, index) => (
@@ -121,14 +139,24 @@ export const Calendar: FC<ICalendarProps> = ({
           {renderWeekDays()}
           <FlatList
             data={getDaysToRender()}
-            renderItem={({item}) => (
-              <DayComponent
-                item={item}
-                currentDate={currentDate}
-                selectedDate={selectedDate}
-                setSelectedDate={onSelectDate}
-              />
-            )}
+            renderItem={({item}) => {
+              const dayHasEvents = item
+                ? Boolean(
+                    eventsOnMonth.find(event =>
+                      areDatesEqual(event.date, item),
+                    ),
+                  )
+                : false;
+              return (
+                <DayComponent
+                  hasEvents={dayHasEvents}
+                  item={item}
+                  currentDate={currentDate}
+                  selectedDate={selectedDate}
+                  setSelectedDate={onSelectDate}
+                />
+              );
+            }}
             keyExtractor={(item, index) =>
               item ? item.toDateString() : index.toString()
             }
