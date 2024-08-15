@@ -13,19 +13,24 @@ import {TypoBase} from '../typography/TypoBase';
 import {CalendarControl} from '../controls';
 import {DayComponent} from './day/DayComponent';
 import {DayView} from './dayView/DayView';
-import {mockEvents} from '../../config/contants';
+import {IEvent} from '../../models/events';
 
 interface ICalendarProps {
   currentViewMode: viewTypes;
+  selectedDate: Date;
+  setSelectedDate: (value: Date) => void;
   onChangeViewMode: (value: viewTypes) => void;
+  savedEvents: IEvent[];
 }
 
 export const Calendar: FC<ICalendarProps> = ({
   currentViewMode,
   onChangeViewMode,
+  selectedDate,
+  setSelectedDate,
+  savedEvents,
 }) => {
   const currentDate = new Date();
-  const [selectedDate, setSelectedDate] = useState(currentDate);
   const [year, setYear] = useState(currentDate.getFullYear());
   const [month, setMonth] = useState(currentDate.getMonth());
   const weekDays = getWeekDays();
@@ -80,13 +85,13 @@ export const Calendar: FC<ICalendarProps> = ({
   };
 
   const eventsOnSelectedDay = useMemo(
-    () => mockEvents.filter(event => areDatesEqual(event.date, selectedDate)),
-    [selectedDate],
+    () => savedEvents.filter(event => areDatesEqual(event.date, selectedDate)),
+    [selectedDate, savedEvents],
   );
 
   const eventsOnMonth = useMemo(
     () =>
-      mockEvents.filter(event => {
+      savedEvents.filter(event => {
         return isOnSameMonth({
           firstDate: {
             month: month,
@@ -98,7 +103,7 @@ export const Calendar: FC<ICalendarProps> = ({
           },
         });
       }),
-    [month, year],
+    [month, year, savedEvents],
   );
 
   const renderWeekDays = () => (

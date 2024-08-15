@@ -51,12 +51,14 @@ export const Controls: FC<IControlsProps> = ({
           isActive={currentViewMode === 'calendar'}
         />
       </View>
-      <Pressable onPress={onAddEvent} style={styles.roundedButton}>
-        <Image
-          style={styles.icon}
-          source={require('../../../../assets/images/icons/plus.png')}
-        />
-      </Pressable>
+      {currentViewMode === 'day' && (
+        <Pressable onPress={onAddEvent} style={styles.roundedButton}>
+          <Image
+            style={styles.icon}
+            source={require('../../../../assets/images/icons/plus.png')}
+          />
+        </Pressable>
+      )}
     </View>
   );
 };
