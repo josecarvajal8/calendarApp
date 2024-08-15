@@ -23,6 +23,8 @@ export const LABEL_MONTHS: Record<number, string> = {
   11: 'December',
 };
 
+export const EVENTS_KEY = 'events';
+
 export const mockEvents: IEvent[] = [
   {
     id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',

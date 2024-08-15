@@ -42,3 +42,20 @@ export const adjustDateByDays = (date: Date, daysToAdjust: number) => {
   const result = date.setUTCDate(date.getUTCDate() + daysToAdjust);
   return new Date(result);
 };
+
+export const parseTime = (time: string) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return {hours, minutes};
+};
+
+export const isValidTime = (time: string) => {
+  const {hours, minutes} = parseTime(time);
+  return (
+    !isNaN(hours) &&
+    hours >= 0 &&
+    hours <= 23 &&
+    !isNaN(minutes) &&
+    minutes >= 0 &&
+    minutes <= 59
+  );
+};

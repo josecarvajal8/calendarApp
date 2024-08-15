@@ -14,6 +14,7 @@ interface IButtonControlProps {
 interface IControlsProps {
   currentViewMode: viewTypes;
   onChangeViewMode: (value: viewTypes) => void;
+  onAddEvent: () => void;
 }
 
 const ButtonControl: FC<IButtonControlProps> = ({action, title, isActive}) => {
@@ -32,6 +33,7 @@ const ButtonControl: FC<IButtonControlProps> = ({action, title, isActive}) => {
 export const Controls: FC<IControlsProps> = ({
   currentViewMode,
   onChangeViewMode,
+  onAddEvent,
 }) => {
   const onCalendarView = () => onChangeViewMode('calendar');
   const onDayView = () => onChangeViewMode('day');
@@ -49,12 +51,14 @@ export const Controls: FC<IControlsProps> = ({
           isActive={currentViewMode === 'calendar'}
         />
       </View>
-      <Pressable style={styles.roundedButton}>
-        <Image
-          style={styles.icon}
-          source={require('../../../../assets/images/icons/plus.png')}
-        />
-      </Pressable>
+      {currentViewMode === 'day' && (
+        <Pressable onPress={onAddEvent} style={styles.roundedButton}>
+          <Image
+            style={styles.icon}
+            source={require('../../../../assets/images/icons/plus.png')}
+          />
+        </Pressable>
+      )}
     </View>
   );
 };
