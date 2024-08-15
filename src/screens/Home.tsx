@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {viewTypes} from '../models/common';
 import {Calendar} from '../components/calendar/Calendar';
 import {Controls} from '../components/controls';
+import {mockEvents} from '../config/contants';
 export const Home: FC = () => {
   const {navigate} = useNavigation();
   const [viewMode, setViewMode] = useState<viewTypes>('day');
