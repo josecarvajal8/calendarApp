@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import {Alert, Pressable, TextInput, View} from 'react-native';
 import {TypoBase} from '../typography/TypoBase';
 import {styles} from './styles';
-import {EVENTS_KEY, LABEL_MONTHS} from '../../config/contants';
+import {EVENTS_KEY, LABEL_MONTHS} from '../../config/constants';
 import {isValidTime, parseTime} from '../../utils/utilities';
 import {IEvent} from '../../models/events';
 import uuid from 'react-native-uuid';

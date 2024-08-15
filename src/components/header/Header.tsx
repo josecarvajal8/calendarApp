@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Pressable, Text, View} from 'react-native';
+import {Image, Pressable, View} from 'react-native';
 import {TypoBase} from '../typography/TypoBase';
 import {styles} from './styles';
 
@@ -13,7 +13,10 @@ export const Header: FC<IHeaderProps> = ({title, leftAction}) => {
     <View style={styles.container}>
       {leftAction ? (
         <Pressable onPress={leftAction} style={styles.button}>
-          <Text style={styles.textButton}>{'<'}</Text>
+          <Image
+            style={styles.icon}
+            source={require('../../../assets/images/icons/back.png')}
+          />
         </Pressable>
       ) : (
         <View style={styles.emptyElement} />

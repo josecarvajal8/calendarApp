@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Image, Pressable, TouchableOpacity, View} from 'react-native';
 import {TypoBase} from '../../typography/TypoBase';
-import {LABEL_MONTHS} from '../../../config/contants';
+import {LABEL_MONTHS} from '../../../config/constants';
 import {styles} from './styles';
 import {viewTypes} from '../../../models/common';
 interface ICalendarControls {

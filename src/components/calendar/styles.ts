@@ -6,6 +6,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     padding: 16,
   },
+  animatedContainer: {
+    flex: 1,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-around',

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {fonts} from '../../config/contants';
+import {fonts} from '../../config/constants';
 import {Colors} from '../../config/colors';
 
 export const styles = StyleSheet.create({
@@ -32,5 +32,10 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     fontFamily: fonts.bold,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
   },
 });
