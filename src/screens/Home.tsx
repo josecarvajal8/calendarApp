@@ -33,7 +33,11 @@ export const Home: FC = () => {
     }
   };
 
-  console.log(savedEvents);
+  const onRefetch = async () => {
+    onCloseModal();
+    await getEvents();
+  };
+
   useEffect(() => {
     getEvents();
   }, []);
@@ -42,6 +46,7 @@ export const Home: FC = () => {
       <Header title="Home" />
       <CustomModal visible={isOpenModal} onClose={onCloseModal}>
         <CreateEventForm
+          refetch={onRefetch}
           currentEvents={savedEvents}
           selectedDate={selectedDate}
         />

@@ -1,8 +1,9 @@
-import React, {FC, useEffect, useRef} from 'react';
+import React, {FC, useEffect, useMemo, useRef} from 'react';
 import {View, ScrollView} from 'react-native';
 import {IEvent} from '../../../models/events';
 import {styles} from './styles';
 import {TypoBase} from '../../typography/TypoBase';
+import {parseTime} from '../../../utils/utilities';
 
 interface IDayViewProps {
   events: IEvent[];
@@ -18,8 +19,8 @@ export const DayView: FC<IDayViewProps> = ({events}) => {
   const renderEvent = (event: IEvent) => {
     const {id, time, title} = event;
     const [startTime, endTime] = time;
-    const [startHour, startMinute] = startTime.split(':').map(Number);
-    const [endHour, endMinute] = endTime.split(':').map(Number);
+    const {hours: startHour, minutes: startMinute} = parseTime(startTime);
+    const {hours: endHour, minutes: endMinute} = parseTime(endTime);
     const top = startHour * 60 + startMinute;
     const height = (endHour - startHour) * 60 + (endMinute - startMinute);
 
@@ -31,14 +32,24 @@ export const DayView: FC<IDayViewProps> = ({events}) => {
       </View>
     );
   };
+  const earliestEvent = useMemo(() => {
+    const startTimes = events.map(({time}) => {
+      const [startTime] = time;
+      const [hours, minutes] = startTime.split(':');
+      return Number(`${hours}${minutes}`);
+    });
+    const [earlyEvent] = startTimes.sort((a, b) => a - b);
+    return earlyEvent;
+  }, [events]);
   const {hours, minutes} = getCurrentTime();
   const topCrossBar = hours * 60 + minutes;
   const scrollRef = useRef<ScrollView | null>(null);
   useEffect(() => {
-    if (scrollRef?.current) {
-      scrollRef.current.scrollTo({y: hours * 60, animated: true});
+    if (scrollRef?.current && earliestEvent) {
+      const hourInitial = Number(earliestEvent.toString().slice(0, 2)) ?? 1;
+      scrollRef.current.scrollTo({y: hourInitial * 60, animated: true});
     }
-  }, [events, hours]);
+  }, [events, earliestEvent]);
   return (
     <ScrollView
       ref={scrollRef}

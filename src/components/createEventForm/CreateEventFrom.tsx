@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {Alert, Button, TextInput, View} from 'react-native';
+import {Alert, Pressable, TextInput, View} from 'react-native';
 import {TypoBase} from '../typography/TypoBase';
 import {styles} from './styles';
 import {EVENTS_KEY, LABEL_MONTHS} from '../../config/contants';
@@ -7,14 +7,17 @@ import {isValidTime, parseTime} from '../../utils/utilities';
 import {IEvent} from '../../models/events';
 import uuid from 'react-native-uuid';
 import {storeData} from '../../provider/storage';
+import {Colors} from '../../config/colors';
 
 interface ICreateEventForm {
   selectedDate: Date;
   currentEvents: IEvent[];
+  refetch: () => void;
 }
 export const CreateEventForm: FC<ICreateEventForm> = ({
   selectedDate,
   currentEvents,
+  refetch,
 }) => {
   const [startTime, setStartTime] = useState<string>('');
   const [endTime, setEndTime] = useState<string>('');
@@ -62,7 +65,6 @@ export const CreateEventForm: FC<ICreateEventForm> = ({
   };
 
   const validateTitle = () => {
-    console.log(title.length);
     if (title.length > 0) {
       return true;
     }
@@ -84,6 +86,7 @@ export const CreateEventForm: FC<ICreateEventForm> = ({
         },
       ];
       await storeData(EVENTS_KEY, JSON.stringify(newEvents));
+      await refetch();
     }
   };
 
@@ -128,7 +131,15 @@ export const CreateEventForm: FC<ICreateEventForm> = ({
         keyboardType="number-pad"
         onChangeText={value => handleStartChange(value, 'end')}
       />
-      <Button title="Submit" onPress={handleSubmit} />
+      {/* <Button title="Submit" onPress={handleSubmit} /> */}
+      <Pressable style={styles.buttonCreate} onPress={handleSubmit}>
+        <TypoBase
+          size="body"
+          fontStyle="bold"
+          style={{color: Colors.common_white}}>
+          {'Create'}
+        </TypoBase>
+      </Pressable>
     </View>
   );
 };
