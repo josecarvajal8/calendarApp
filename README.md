@@ -1,4 +1,4 @@
-## TriviaApp
+## CalendarApp
 
 This CalendarApp allows you to create and manage your events/appointments. It uses Async storage to store data locally, you will be able to see the events detail and navigate across different days.
 
