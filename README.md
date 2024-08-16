@@ -24,7 +24,7 @@ Install the dependencies by running:
 
 Install pods by running:
 
-`cd ios/ && pod install && cd ..`
+`cd ios/ && bundle exec pod install && cd ..`
 
 #### Step 3: Run your app
 
